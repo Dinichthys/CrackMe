@@ -1,8 +1,8 @@
-CXXFLAGS = -D _DEBUG  -ggdb -g3 -D_FORTIFY_SOURCES=3 -std=c++17 -Og -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts -Wconditionally-supported -Wconversion -Wctor-dtor-privacy -Wempty-body -Wfloat-equal -Wformat-nonliteral -Wformat-security -Wformat-signedness -Wformat=2 -Winline -Wlogical-op -Wnon-virtual-dtor -Wopenmp-simd -Woverloaded-virtual -Wpacked -Wpointer-arith -Winit-self -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=2 -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wsuggest-override -Wswitch-default -Wswitch-enum -Wsync-nand -Wundef -Wunreachable-code -Wunused -Wuseless-cast -Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing -Wno-old-style-cast -Wno-varargs -Wstack-protector -fcheck-new -fsized-deallocation -fstack-protector -fstrict-overflow -flto-odr-type-merging -fno-omit-frame-pointer -Wlarger-than=81920 -Wstack-usage=81920 -pie -fPIE -Werror=vla -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
+CXXFLAGS = -I libs -D DEBUG  -ggdb -g3 -D_FORTIFY_SOURCES=3 -std=c++17 -Og -Wall -Wextra -Weffc++ -Waggressive-loop-optimizations -Wc++14-compat -Wmissing-declarations -Wcast-align -Wcast-qual -Wchar-subscripts -Wconditionally-supported -Wconversion -Wctor-dtor-privacy -Wempty-body -Wfloat-equal -Wformat-nonliteral -Wformat-security -Wformat-signedness -Wformat=2 -Winline -Wlogical-op -Wnon-virtual-dtor -Wopenmp-simd -Woverloaded-virtual -Wpacked -Wpointer-arith -Winit-self -Wredundant-decls -Wshadow -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=2 -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wsuggest-override -Wswitch-default -Wswitch-enum -Wsync-nand -Wundef -Wunreachable-code -Wunused -Wuseless-cast -Wvariadic-macros -Wno-literal-suffix -Wno-missing-field-initializers -Wno-narrowing -Wno-old-style-cast -Wno-varargs -Wstack-protector -fcheck-new -fsized-deallocation -fstack-protector -fstrict-overflow -flto-odr-type-merging -fno-omit-frame-pointer -Wlarger-than=81920 -Wstack-usage=81920 -pie -fPIE -Werror=vla -fsanitize=address,alignment,bool,bounds,enum,float-cast-overflow,float-divide-by-zero,integer-divide-by-zero,leak,nonnull-attribute,null,object-size,return,returns-nonnull-attribute,shift,signed-integer-overflow,undefined,unreachable,vla-bound,vptr
 
 CXX = g++
 
-SFMLFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+SFMLFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 WARNINGS = -Wall -Wextra
 # -Wswitch-enum
@@ -19,16 +19,38 @@ endif
 
 all: crack
 
-crack: build crack.o
-	@$(CXX) $(CXXFLAGS) $(SFMLFLAGS) build/crack.o -o crack
+crack: build src my_lib
+	@$(CXX) $(CXXFLAGS) $(SFMLFLAGS) build/* -o crack
 
 
 build:
 	mkdir -p build
 
 
-crack.o: crack.cpp
-	@$(CXX) $(CXXFLAGS) -c crack.cpp -o build/crack.o
+my_lib: my_stdio.o logging.o print_error.o
+	@
+
+my_stdio.o: libs/My_lib/My_stdio/my_stdio.cpp
+	@$(CXX) $(CXXFLAGS) -c libs/My_lib/My_stdio/my_stdio.cpp -o build/my_stdio.o
+
+logging.o: libs/My_lib/Logger/logging.cpp
+	@$(CXX) $(CXXFLAGS) -c libs/My_lib/Logger/logging.cpp -o build/logging.o
+
+print_error.o: libs/My_lib/Assert/print_error.cpp
+	@$(CXX) $(CXXFLAGS) -c libs/My_lib/Assert/print_error.cpp -o build/print_error.o
+
+
+src: main.o video.o bin_patch.o
+	@
+
+main.o: src/main.cpp
+	@$(CXX) $(CXXFLAGS) -c src/main.cpp -o build/main.o
+
+video.o: src/video.cpp
+	@$(CXX) $(CXXFLAGS) -c src/video.cpp -o build/video.o
+
+bin_patch.o: src/bin_patch.cpp
+	@$(CXX) $(CXXFLAGS) -c src/bin_patch.cpp -o build/bin_patch.o
 
 
 clean: rmdir_build
