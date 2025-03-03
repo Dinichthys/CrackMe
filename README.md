@@ -24,4 +24,4 @@ The easier weakness was a password started with symbol '\0'. It was done with an
 
 ### Harder weakness
 
-The harder weakness was a stack overflow, which should be used to change the returning address to skip commparing password.
+The harder weakness was a resident program with 21h interrupt which change the ip register and change the returning value to origin program. I change ip in stack to jump to printing function with good result. I did it in program 'crack.asm'.
