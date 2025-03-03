@@ -25,3 +25,7 @@ The easier weakness was a password started with symbol '\0'. It was done with an
 ### Harder weakness
 
 The harder weakness was a resident program with 21h interrupt which change the ip register and change the returning value to origin program. I change ip in stack to jump to printing function with good result. I did it in program [crack.asm](crack.asm). Another weakness with resident program was changing the address of a string, that he print, from string with bad result to the string with good result. I did it in program [crack_2.asm](crack_2.asm).
+
+### Binary patch
+
+The [program](src/main.cpp) in folder [src](src) open the program '.COM' and change the byte meaning JE command to JMP command in the comparison of the passwords. So in every start of the program it started unlocking with every password. The changed program is located in [cracked.com](cracked.com).
