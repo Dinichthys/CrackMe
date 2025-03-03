@@ -10,7 +10,7 @@ The easier weakness was an empty password which was difined as a true one, becau
 
 ### Harder weakness
 
-The harder weakness was a stack overflow, which should be used to change the returning address to skip commparing password.
+The harder weakness was a stack overflow, which should be used to change the returning address to skip commparing password. This weakness exits because I write the given password to the stack and get too many symbols for the password so the user can rewrite stack.
 
 ## Cracking the program
 
