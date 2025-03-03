@@ -16,3 +16,12 @@ The harder weakness was a stack overflow, which should be used to change the ret
 
 I got a program from [Urodish] (https://github.com/kzueirf12345) for cracking.
 
+### Easier weakness
+
+The easier weakness was a password started with symbol '\0'. It was done with an 'if' at the start of the program.
+
+![alt text](EasierWeakness1.png)
+
+### Harder weakness
+
+The harder weakness was a stack overflow, which should be used to change the returning address to skip commparing password.
