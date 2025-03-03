@@ -4,6 +4,10 @@ locals ll
 .code
 org 100h
 
+PRINT_FUNC  equ 09h
+INT_NUMBER  equ 03h
+FAKE_IP     equ 013Dh
+
 Main:
     mov ax, 0h
     mov es, ax
@@ -29,7 +33,7 @@ Main:
 
 DOSint  proc
 
-    cmp ah, 09h
+    cmp ah, PRINT_FUNC
     je llCheckNumber
 
 llContinue:
@@ -40,7 +44,7 @@ RealDOSSeg dw 0h
 llCheckNumber:
     inc cs:[Count]
 
-    cmp cs:[Count], 03h
+    cmp cs:[Count], INT_NUMBER
     je llCrack
 
     jmp llContinue
@@ -61,7 +65,7 @@ llCrack:
     pop es bx ax
 
     pop cs:[Save_ip]
-    push 0144h
+    push FAKE_IP
 
     push ax
     mov ax, 20h

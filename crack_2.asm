@@ -4,6 +4,10 @@ locals ll
 .code
 org 100h
 
+PRINT_FUNC  equ 09h
+INT_NUMBER  equ 03h
+FAKE_STRING equ 0197h
+
 Main:
     mov ax, 0h
     mov es, ax
@@ -14,7 +18,7 @@ Main:
     mov ax, word ptr es:[bx]
     mov RealDOSOfs, ax
     mov ax, word ptr es:[bx+2]
-    mov RealDOSSeg, ax             ; Save the address of previous Time Controller
+    mov RealDOSSeg, ax                  ; Save the address of previous Time Controller
     mov es:[bx], offset DOSint
     mov es:[bx+2], cs                   ; Load the address of my Time Controller
 
@@ -28,7 +32,7 @@ Main:
 
 DOSint  proc
 
-    cmp ah, 09h
+    cmp ah, PRINT_FUNC
     je llCheckNumber
 
 llContinue:
@@ -39,7 +43,7 @@ RealDOSSeg dw 0h
 llCheckNumber:
     inc cs:[Count]
 
-    cmp cs:[Count], 03h
+    cmp cs:[Count], INT_NUMBER
     je llCrack
 
     jmp llContinue
@@ -59,7 +63,7 @@ llCrack:
 
     pop es bx ax
 
-    mov dx, 019Dh
+    mov dx, FAKE_STRING
     jmp llContinue
 
 endp
