@@ -8,6 +8,8 @@ My prgram is set in CrackMe.asm. This program got a password and compare it with
 
 The easier weakness was an empty password which was difined as a true one, because the space allocated for the password was filled with zero-elements. 
 
+![alt text](MyWeakness1.png)
+
 ### Harder weakness
 
 The harder weakness was a stack overflow, which should be used to change the returning address to skip commparing password. This weakness exits because I write the given password to the stack and get too many symbols for the password so the user can rewrite stack.
