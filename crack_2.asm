@@ -1,5 +1,6 @@
 .model tiny
 .186
+locals ll
 .code
 org 100h
 
@@ -28,23 +29,22 @@ Main:
 DOSint  proc
 
     cmp ah, 09h
-    je Rofl
+    je llCheckNumber
 
-Continue:
+llContinue:
     db 0eah                             ; Jump to real DOS int Controller
 RealDOSOfs dw 0h
 RealDOSSeg dw 0h
 
-Rofl:
+llCheckNumber:
     inc cs:[Count]
 
-    mov dx, 019Dh
     cmp cs:[Count], 03h
-    je Lomaem
+    je llCrack
 
-    jmp Continue
+    jmp llContinue
 
-Lomaem:
+llCrack:
 
     push ax bx es
 
@@ -59,13 +59,12 @@ Lomaem:
 
     pop es bx ax
 
-    jmp Continue
+    mov dx, 019Dh
+    jmp llContinue
 
 endp
 
 Count db 0h
-Save_cs dw 0h
-Save_ip dw 0h
 
 EndLabel:
 

@@ -1,5 +1,6 @@
 .model tiny
 .186
+locals ll
 .code
 org 100h
 
@@ -13,7 +14,7 @@ Main:
     mov ax, word ptr es:[bx]
     mov RealDOSOfs, ax
     mov ax, word ptr es:[bx+2]
-    mov RealDOSSeg, ax             ; Save the address of previous Time Controller
+    mov RealDOSSeg, ax                  ; Save the address of previous Time Controller
     mov es:[bx], offset DOSint
     mov es:[bx+2], cs                   ; Load the address of my Time Controller
 
@@ -25,25 +26,26 @@ Main:
     inc dx
     int 21h                             ; Stop and stay resident
 
+
 DOSint  proc
 
     cmp ah, 09h
-    je Rofl
+    je llCheckNumber
 
-Continue:
+llContinue:
     db 0eah                             ; Jump to real DOS int Controller
 RealDOSOfs dw 0h
 RealDOSSeg dw 0h
 
-Rofl:
+llCheckNumber:
     inc cs:[Count]
 
     cmp cs:[Count], 03h
-    je Lomaem
+    je llCrack
 
-    jmp Continue
+    jmp llContinue
 
-Lomaem:
+llCrack:
 
     push ax bx es
 
@@ -71,7 +73,7 @@ Lomaem:
 endp
 
 Count db 0h
-Save_cs dw 0h
+
 Save_ip dw 0h
 
 EndLabel:
