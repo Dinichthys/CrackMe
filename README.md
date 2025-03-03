@@ -14,7 +14,7 @@ The harder weakness was a stack overflow, which should be used to change the ret
 
 ## Cracking the program
 
-I got a program from [Urodish](https://github.com/kzueirf12345) for cracking.
+I got a [program](VZLOM.COM) from [Urodish](https://github.com/kzueirf12345) for cracking.
 
 ### Easier weakness
 
