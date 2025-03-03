@@ -18,6 +18,8 @@ const float kMoveY = 10;
 
 const long int kDelay = 100000;
 
+const char* const kWindowName = "Bruh... You are cracking...";
+
 const char* const kImageFile = "data/roflan.png";
 
 const char* const kMusicFile = "data/VI_KA.mp3";

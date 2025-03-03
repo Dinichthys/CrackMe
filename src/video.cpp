@@ -20,7 +20,7 @@ void* ShowVideo (void*)
     sf::Sound sound_music (sound_buffer);
     sound_music.play ();
 
-    sf::RenderWindow window (sf::VideoMode (kWindowWidth, kWindowHeight),"Bruh... You are cracking..."); ///ANCHOR -
+    sf::RenderWindow window (sf::VideoMode (kWindowWidth, kWindowHeight),kWindowName);
 
     sf::Texture texture;
     texture.loadFromFile (kImageFile, sf::IntRect({0, 0}, {kImageWidth, kImageHeight}));
