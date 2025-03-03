@@ -9,6 +9,7 @@
     {                                                                                                   \
         fprintf (stderr, "Code error = {%d} with name \"%s\"\n",                                        \
                          error, EnumErrorToStr (error));                                                \
+        pthread_join(video_thread, NULL);                                                               \
         return EXIT_FAILURE;                                                                            \
     }
 

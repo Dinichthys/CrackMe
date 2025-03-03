@@ -16,7 +16,7 @@ const float kStartPositionY = 20;
 const float kMoveX = 10;
 const float kMoveY = 10;
 
-const long int kDelay = 100;
+const long int kDelay = 100000;
 
 const char* const kImageFile = "data/roflan.png";
 

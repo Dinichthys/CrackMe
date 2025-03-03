@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <pthread.h>
+#include <unistd.h>
 #include <time.h>
 
 #include <SFML/Graphics.hpp>
@@ -19,7 +20,7 @@ void* ShowVideo (void*)
     sf::Sound sound_music (sound_buffer);
     sound_music.play ();
 
-    sf::RenderWindow window (sf::VideoMode (kWindowWidth, kWindowHeight),"Bruh... You are cracking...");
+    sf::RenderWindow window (sf::VideoMode (kWindowWidth, kWindowHeight),"Bruh... You are cracking..."); ///ANCHOR -
 
     sf::Texture texture;
     texture.loadFromFile (kImageFile, sf::IntRect({0, 0}, {kImageWidth, kImageHeight}));
@@ -49,7 +50,7 @@ void* ShowVideo (void*)
         window.clear ();
         window.draw (sprite);
         window.display ();
-        Delay (kDelay);
+        usleep (kDelay);
 
         if (pos_x < kMoveX)
         {
@@ -80,16 +81,4 @@ void* ShowVideo (void*)
     sound_music.stop ();
 
     return NULL;
-}
-
-static void Delay (const long int milliseconds)
-{
-    clock_t now = clock ();
-    clock_t microseconds = milliseconds * 1000;
-    clock_t wait = now + microseconds;
-
-    while (clock () < wait)
-        ;
-
-    return;
 }
