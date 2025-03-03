@@ -11,8 +11,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 
-static void Delay (const long int milliseconds);
-
 void* ShowVideo (void*)
 {
     sf::SoundBuffer sound_buffer;

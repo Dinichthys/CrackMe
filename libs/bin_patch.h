@@ -5,8 +5,8 @@
 
 #include <stdlib.h>
 
-const size_t kJEIndex = 0x36;
-const u_int8_t kJMPHex = 0x36;
+const size_t kJEIndex = 0x1D;
+const u_int8_t kJMPHex = 0xEB;
 
 const char* const kFileOutName = "cracked.com";
 

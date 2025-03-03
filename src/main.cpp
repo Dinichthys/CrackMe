@@ -18,7 +18,7 @@ int main ()
     pthread_t video_thread;
     pthread_create (&video_thread, NULL, ShowVideo, NULL);
 
-    ERROR_HANDLER (Crack ("VZZZLOM.COM"));
+    ERROR_HANDLER (Crack ("VZLOM.COM"));
 
     pthread_join(video_thread, NULL);
 
