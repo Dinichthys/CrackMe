@@ -210,9 +210,9 @@ endp
 
 HelloMassage    db 'Hello, dear user!', 0Dh, 0Ah, 'Print the password or be caught:$'
 
-CorrectResult   db 0Dh, 0Ah, 'LEGENDA GONOK$'
+CorrectResult   db 0Dh, 0Ah, 'YOU ARE A LIVING LEGEND$'
 
-IncorrectResult db 0Dh, 0Ah, 'AGA TU POIMAN$'
+IncorrectResult db 0Dh, 0Ah, 'I GOT YOU$'
 
 Password db 0h, 0h, 0h
 
