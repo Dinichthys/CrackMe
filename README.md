@@ -8,7 +8,7 @@ My prgram is set in CrackMe.asm. This program got a password and compare it with
 
 The easier weakness was an empty password which was difined as a true one, because the space allocated for the password was filled with zero-elements. 
 
-![alt text](MyWeakness1.png)
+![alt text](data/MyWeakness1.png)
 
 ### Harder weakness
 
@@ -22,7 +22,7 @@ I got a [program](VZLOM.COM) from [Urodish](https://github.com/kzueirf12345) for
 
 The easier weakness was a password started with symbol '\0'. It was done with an 'if' at the start of the program.
 
-![alt text](EasierWeakness1.png)
+![alt text](data/EasierWeakness1.png)
 
 ### Harder weakness
 
@@ -30,4 +30,4 @@ The harder weakness was a resident program with 21h interrupt which change the i
 
 ### Binary patch
 
-The [program](src/main.cpp) in folder [src](src) open the program '.COM' and change the byte meaning JE command to JMP command in the comparison of the passwords. So in every start of the program it started unlocking with every password. The changed program is located in [cracked.com](cracked.com).
+The [program](src/main.cpp) in folder [src](src) open the program '.COM' and change the byte meaning JE command to JMP command in the comparison of the passwords. So in every start of the program it started unlocking with every password. The changed program is located in [cracked.com](cracked.com). Also my program make a new thread, in which it draws a Roflan, which moves like DVD player logotype. More than that it started a music from the file [VI_KA.mp3](data/VI_KA.mp3).
