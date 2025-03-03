@@ -31,3 +31,5 @@ The harder weakness was a resident program with 21h interrupt which change the i
 ### Binary patch
 
 The [program](src/main.cpp) in folder [src](src) open the program '.COM' and change the byte meaning JE command to JMP command in the comparison of the passwords. So in every start of the program it started unlocking with every password. The changed program is located in [cracked.com](cracked.com). Also my program make a new thread, in which it draws a Roflan, which moves like DVD player logotype. More than that it started a music from the file [VI_KA.mp3](data/VI_KA.mp3).
+
+![alt text](data/RoflanScreenshot.png)
