@@ -49,7 +49,7 @@ llFreeStackArray:
 
 ## Взлом чужой программы
 
-Я обменялся программами с пользователем [Urodish](https://github.com/kzueirf12345). Его файл расположен [тут](VZLOM.COM). Для дизассемблирования я использовал встроенную программу Turbo Debugger.
+Я обменялся программами с пользователем [Urodish](https://github.com/kzueirf12345). Его файл расположен [тут](VZLOM.COM). Для дизассемблирования я использовал встроенную программу Turbo Debugger, а так же такие программы, как Radare2 и Ghidra.
 
 ### Лёгкая уязвимость
 
@@ -71,10 +71,30 @@ llFreeStackArray:
 
 #### Запуск программы после бинарного патча:
 
-![alt text]()
+![alt text](data/CorrectOut.png)
 
 Так же данная программа логирует все свои действия и в параллельном потоке открывает окошко, в котором рисует движение картинки из файла [roflan.com](data/roflan.png) по траектории движения логотипа DVD, а так же запускает музыку из файла [VI_KA.mp3](data/VI_KA.mp3). Для работы с графикой используется библиотека SFML.
 
 #### Вид окна, нарисованного программой:
 
 ![alt text](data/RoflanScreenshot.png)
+
+## Отдельное сравнение дизассемблеров
+
+### IDA
+
+![alt text](data/IDA.png)
+
+### Turbo Debugger
+
+![alt text](data/TurboDebugger.png)
+
+### Radare2
+
+#### Вывод в дизассемблере кода с комментариями
+
+![alt text](data/Radare2Comments.png)
+
+#### Отображение зависимостей в **jump**'ах и **call**'ах
+
+![alt text](data/Radare2JMP.png)
