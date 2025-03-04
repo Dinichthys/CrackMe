@@ -81,7 +81,7 @@ llFreeStackArray:
 
 ## Отдельное сравнение дизассемблеров
 
-### IDA
+### IDA (в DOSBox)
 
 ![alt text](data/IDA.png)
 
