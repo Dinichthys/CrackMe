@@ -81,7 +81,7 @@ llFreeStackArray:
 
 ## Отдельное сравнение дизассемблеров
 
-Сравнение производилось на примере взлома программы от университета Вирджинии - The Bomb Lab. Данная программа запрашивает пароль, а затем сравнивает его тем или иным способом. Всего в задаче заявлено 6 фаз (уровней сложности), то есть 6 разных паролей, которые нужно подобрать, или обойти их проверку другим способом.
+Сравнение производилось на примере взлома программы от университета Вирджинии - [The Bomb Lab](https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.cs.virginia.edu/~cr4bd/3330/F2018/bomblab.html&ved=2ahUKEwjy1pO_jvWLAxWGPRAIHTHDG2cQFnoECCYQAQ&usg=AOvVaw0cDFj91T0ZLFPO9K6xn9_r). Её содержимое лежит в папке [bomb](bomb). Данная программа запрашивает пароль, а затем сравнивает его тем или иным способом. Всего в задаче заявлено 6 фаз (уровней сложности), то есть 6 разных паролей, которые нужно подобрать, или обойти их проверку другим способом.
 
 В процессе взлома использовались такие программы, как IDA Free, Radare2 и Ghidra. На разных этапах каждая из этих программ была полезна.
 
@@ -103,7 +103,7 @@ Ghidra также была полена. Она также строила дер
 
 ![alt text](data/GhidraFuncTree.png)
 
-Дерево отличается от того, что было построено в IDA, однако, оно показывает не только вызовы функций, но ещё и jump'ы.
+Дерево отличается от того, что было построено в IDA. Во-первых, оно показывает не только вызовы функций, но ещё и jump'ы, но не показывает эти вызовы во всей программе, в отличие от IDA. Так же имена мест, куда прыгает программа при выполнении того или иного **jump**'а или **call**'а, отличаются от тех, которые рисует IDA. Здесь видны лишь прыжки в библиотеку с функциями бомбы,
 
 Это не единственный плюс данного дизассемблера. Следующее его преимущество - декомпиляция программы до языка высокого уровня.
 
@@ -111,11 +111,79 @@ P.S.: IDA тоже умеет декомпилировать, однако, да
 
 #### Main
 
-![alt text](data/GhidraMain.png)
+```
+
+/* WARNING: Unknown calling convention */
+
+int main(int argc,char **argv)
+
+{
+  char *pcVar1;
+
+  if (argc == 1) {
+     infile = stdin;
+  }
+  else {
+     if (argc != 2) {
+        __printf_chk(1,"Usage: %s [<input_file>]\n",*argv);
+                            /* WARNING: Subroutine does not return */
+        exit(8);
+     }
+     infile = (FILE *)fopen(argv[1],"r");
+     if (infile == (FILE *)0x0) {
+        __printf_chk(1,"%s: Error: Couldn\'t open %s\n",*argv,argv[1]);
+                            /* WARNING: Subroutine does not return */
+        exit(8);
+     }
+  }
+  initialize_bomb();
+  puts("Welcome to my fiendish little bomb. You have 6 phases with");
+  puts("which to blow yourself up. Have a nice day!");
+  pcVar1 = read_line();
+  phase_1(pcVar1);
+  phase_defused();
+  puts("Phase 1 defused. How about the next one?");
+  pcVar1 = read_line();
+  phase_2(pcVar1);
+  phase_defused();
+  puts("That\'s number 2.  Keep going!");
+  pcVar1 = read_line();
+  phase_3(pcVar1);
+  phase_defused();
+  puts("Halfway there!");
+  pcVar1 = read_line();
+  phase_4(pcVar1);
+  phase_defused();
+  puts("So you got that one.  Try this one.");
+  pcVar1 = read_line();
+  phase_5(pcVar1);
+  phase_defused();
+  puts("Good work!  On to the next...");
+  pcVar1 = read_line();
+  phase_6(pcVar1);
+  phase_defused();
+  return 0;
+}
+
+```
 
 #### Phase 1
 
-![alt text](data/GhidraPhase1.png)
+```
+
+void phase_1(char *param_1)
+
+{
+  undefined8 uVar1;
+
+  uVar1 = strings_not_equal(param_1,"Border relations with Canada have never been better.");
+  if ((int)uVar1 != 0) {
+     explode_bomb();
+  }
+  return;
+}
+
+```
 
 Так выглядят декомпилированные функции в Ghidra. Язык высокого уровня бывает проще понять, чем команды на ассемблере, так что данная функция Ghidra является её плюсом.
 
